@@ -6,6 +6,8 @@ import (
 	"strings"
 
 	"github.com/pocketbase/pocketbase"
+	"github.com/pocketbase/pocketbase/apis"
+	"github.com/pocketbase/pocketbase/core"
 	"github.com/pocketbase/pocketbase/plugins/migratecmd"
 	_ "go.uber.org/automaxprocs"
 )
@@ -19,6 +21,13 @@ func main() {
 		// (the isGoRun check is to enable it only during development)
 		Automigrate: isGoRun,
 	})
+
+	// serve static files from pb_public (e.g. ui/dist will be copied here)
+	app.OnBeforeServe().Add(func(e *core.ServeEvent) error {
+		e.Router.GET("/*", apis.StaticDirectoryHandler(os.DirFS("./pb_public"), true))
+		return nil
+	})
+
 	err := app.Start()
 	if err != nil {
 		log.Fatal(err)
