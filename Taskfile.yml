@@ -40,3 +40,7 @@ tasks:
   fly-deploy:
     cmds:
       - fly deploy --remote-only
+
+  dev:
+    cmds:
+      - goreman start

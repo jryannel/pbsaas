@@ -16,9 +16,12 @@ This is a Pocketbase SAAS template that can be used to create a Pocketbase insta
     - Routing using Tanstack Router [https://tanstack.com/router](https://tanstack.com/router)
     - React Query [https://tanstack.com/query](https://tanstack.com/query)  
 
-- Additional
-    - Fly.io [https://fly.io/](https://fly.io/) for deployment
+- Optional
     - Taskfile [https://taskfile.dev/](https://taskfile.dev/) for automation
+    - Fly.io [https://fly.io/](https://fly.io/) for deployment
+    - Docker [https://www.docker.com/](https://www.docker.com/) for deployment
+    - Goreman [https://github.com/mattn/goreman](https://github.com/mattn/goreman) for development
+    - Golangci-lint [https://golangci-lint.run/](https://golangci-lint.run/) for linting
 
 ## Features
 - Authentication (email/password and google oauth)
