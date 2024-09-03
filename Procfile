@@ -1,2 +1,2 @@
-app: cd app && go run main.go serve
+app: cd app && air
 ui: cd ui && npm run dev

@@ -11,18 +11,90 @@
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
+import { Route as IndexImport } from './routes/index'
+import { Route as TeamsIndexImport } from './routes/teams/index'
+import { Route as AuthRegisterImport } from './routes/auth/register'
+import { Route as AuthLogoutImport } from './routes/auth/logout'
+import { Route as AuthLoginImport } from './routes/auth/login'
 
 // Create/Update Routes
+
+const IndexRoute = IndexImport.update({
+  path: '/',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const TeamsIndexRoute = TeamsIndexImport.update({
+  path: '/teams/',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const AuthRegisterRoute = AuthRegisterImport.update({
+  path: '/auth/register',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const AuthLogoutRoute = AuthLogoutImport.update({
+  path: '/auth/logout',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const AuthLoginRoute = AuthLoginImport.update({
+  path: '/auth/login',
+  getParentRoute: () => rootRoute,
+} as any)
 
 // Populate the FileRoutesByPath interface
 
 declare module '@tanstack/react-router' {
-  interface FileRoutesByPath {}
+  interface FileRoutesByPath {
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexImport
+      parentRoute: typeof rootRoute
+    }
+    '/auth/login': {
+      id: '/auth/login'
+      path: '/auth/login'
+      fullPath: '/auth/login'
+      preLoaderRoute: typeof AuthLoginImport
+      parentRoute: typeof rootRoute
+    }
+    '/auth/logout': {
+      id: '/auth/logout'
+      path: '/auth/logout'
+      fullPath: '/auth/logout'
+      preLoaderRoute: typeof AuthLogoutImport
+      parentRoute: typeof rootRoute
+    }
+    '/auth/register': {
+      id: '/auth/register'
+      path: '/auth/register'
+      fullPath: '/auth/register'
+      preLoaderRoute: typeof AuthRegisterImport
+      parentRoute: typeof rootRoute
+    }
+    '/teams/': {
+      id: '/teams/'
+      path: '/teams'
+      fullPath: '/teams'
+      preLoaderRoute: typeof TeamsIndexImport
+      parentRoute: typeof rootRoute
+    }
+  }
 }
 
 // Create and export the route tree
 
-export const routeTree = rootRoute.addChildren({})
+export const routeTree = rootRoute.addChildren({
+  IndexRoute,
+  AuthLoginRoute,
+  AuthLogoutRoute,
+  AuthRegisterRoute,
+  TeamsIndexRoute,
+})
 
 /* prettier-ignore-end */
 
@@ -31,7 +103,28 @@ export const routeTree = rootRoute.addChildren({})
   "routes": {
     "__root__": {
       "filePath": "__root.tsx",
-      "children": []
+      "children": [
+        "/",
+        "/auth/login",
+        "/auth/logout",
+        "/auth/register",
+        "/teams/"
+      ]
+    },
+    "/": {
+      "filePath": "index.tsx"
+    },
+    "/auth/login": {
+      "filePath": "auth/login.tsx"
+    },
+    "/auth/logout": {
+      "filePath": "auth/logout.tsx"
+    },
+    "/auth/register": {
+      "filePath": "auth/register.tsx"
+    },
+    "/teams/": {
+      "filePath": "teams/index.tsx"
     }
   }
 }
