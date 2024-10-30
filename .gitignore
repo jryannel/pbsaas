@@ -25,3 +25,4 @@ go.work.sum
 .env
 /app/pb_data
 /app/tmp
+.DS_Store

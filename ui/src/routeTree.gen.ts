@@ -11,21 +11,41 @@
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
-import { Route as IndexImport } from './routes/index'
-import { Route as TeamsIndexImport } from './routes/teams/index'
+import { Route as HomeRouteImport } from './routes/_home/route'
+import { Route as HomeIndexImport } from './routes/_home/index'
+import { Route as AuthResetImport } from './routes/auth/reset'
+import { Route as AuthRegistersuccessImport } from './routes/auth/register_success'
 import { Route as AuthRegisterImport } from './routes/auth/register'
 import { Route as AuthLogoutImport } from './routes/auth/logout'
 import { Route as AuthLoginImport } from './routes/auth/login'
+import { Route as ProjectsProjectIdRouteImport } from './routes/projects.$projectId/route'
+import { Route as ProjectsProjectIdIndexImport } from './routes/projects.$projectId/index'
+import { Route as HomeProjectsIndexImport } from './routes/_home/projects/index'
+import { Route as HomeSettingsTeamsImport } from './routes/_home/settings/teams'
+import { Route as HomeSettingsNotificationsImport } from './routes/_home/settings/notifications'
+import { Route as HomeSettingsAccountImport } from './routes/_home/settings/account'
+import { Route as ProjectsProjectIdSettingsProjectImport } from './routes/projects.$projectId/settings/project'
+import { Route as ProjectsProjectIdSettingsGeneralImport } from './routes/projects.$projectId/settings/general'
 
 // Create/Update Routes
 
-const IndexRoute = IndexImport.update({
-  path: '/',
+const HomeRouteRoute = HomeRouteImport.update({
+  id: '/_home',
   getParentRoute: () => rootRoute,
 } as any)
 
-const TeamsIndexRoute = TeamsIndexImport.update({
-  path: '/teams/',
+const HomeIndexRoute = HomeIndexImport.update({
+  path: '/',
+  getParentRoute: () => HomeRouteRoute,
+} as any)
+
+const AuthResetRoute = AuthResetImport.update({
+  path: '/auth/reset',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const AuthRegistersuccessRoute = AuthRegistersuccessImport.update({
+  path: '/auth/register_success',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -44,15 +64,64 @@ const AuthLoginRoute = AuthLoginImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
+const ProjectsProjectIdRouteRoute = ProjectsProjectIdRouteImport.update({
+  path: '/projects/$projectId',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const ProjectsProjectIdIndexRoute = ProjectsProjectIdIndexImport.update({
+  path: '/',
+  getParentRoute: () => ProjectsProjectIdRouteRoute,
+} as any)
+
+const HomeProjectsIndexRoute = HomeProjectsIndexImport.update({
+  path: '/projects/',
+  getParentRoute: () => HomeRouteRoute,
+} as any)
+
+const HomeSettingsTeamsRoute = HomeSettingsTeamsImport.update({
+  path: '/settings/teams',
+  getParentRoute: () => HomeRouteRoute,
+} as any)
+
+const HomeSettingsNotificationsRoute = HomeSettingsNotificationsImport.update({
+  path: '/settings/notifications',
+  getParentRoute: () => HomeRouteRoute,
+} as any)
+
+const HomeSettingsAccountRoute = HomeSettingsAccountImport.update({
+  path: '/settings/account',
+  getParentRoute: () => HomeRouteRoute,
+} as any)
+
+const ProjectsProjectIdSettingsProjectRoute =
+  ProjectsProjectIdSettingsProjectImport.update({
+    path: '/settings/project',
+    getParentRoute: () => ProjectsProjectIdRouteRoute,
+  } as any)
+
+const ProjectsProjectIdSettingsGeneralRoute =
+  ProjectsProjectIdSettingsGeneralImport.update({
+    path: '/settings/general',
+    getParentRoute: () => ProjectsProjectIdRouteRoute,
+  } as any)
+
 // Populate the FileRoutesByPath interface
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexImport
+    '/_home': {
+      id: '/_home'
+      path: ''
+      fullPath: ''
+      preLoaderRoute: typeof HomeRouteImport
+      parentRoute: typeof rootRoute
+    }
+    '/projects/$projectId': {
+      id: '/projects/$projectId'
+      path: '/projects/$projectId'
+      fullPath: '/projects/$projectId'
+      preLoaderRoute: typeof ProjectsProjectIdRouteImport
       parentRoute: typeof rootRoute
     }
     '/auth/login': {
@@ -76,12 +145,75 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthRegisterImport
       parentRoute: typeof rootRoute
     }
-    '/teams/': {
-      id: '/teams/'
-      path: '/teams'
-      fullPath: '/teams'
-      preLoaderRoute: typeof TeamsIndexImport
+    '/auth/register_success': {
+      id: '/auth/register_success'
+      path: '/auth/register_success'
+      fullPath: '/auth/register_success'
+      preLoaderRoute: typeof AuthRegistersuccessImport
       parentRoute: typeof rootRoute
+    }
+    '/auth/reset': {
+      id: '/auth/reset'
+      path: '/auth/reset'
+      fullPath: '/auth/reset'
+      preLoaderRoute: typeof AuthResetImport
+      parentRoute: typeof rootRoute
+    }
+    '/_home/': {
+      id: '/_home/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof HomeIndexImport
+      parentRoute: typeof HomeRouteImport
+    }
+    '/_home/settings/account': {
+      id: '/_home/settings/account'
+      path: '/settings/account'
+      fullPath: '/settings/account'
+      preLoaderRoute: typeof HomeSettingsAccountImport
+      parentRoute: typeof HomeRouteImport
+    }
+    '/_home/settings/notifications': {
+      id: '/_home/settings/notifications'
+      path: '/settings/notifications'
+      fullPath: '/settings/notifications'
+      preLoaderRoute: typeof HomeSettingsNotificationsImport
+      parentRoute: typeof HomeRouteImport
+    }
+    '/_home/settings/teams': {
+      id: '/_home/settings/teams'
+      path: '/settings/teams'
+      fullPath: '/settings/teams'
+      preLoaderRoute: typeof HomeSettingsTeamsImport
+      parentRoute: typeof HomeRouteImport
+    }
+    '/_home/projects/': {
+      id: '/_home/projects/'
+      path: '/projects'
+      fullPath: '/projects'
+      preLoaderRoute: typeof HomeProjectsIndexImport
+      parentRoute: typeof HomeRouteImport
+    }
+    '/projects/$projectId/': {
+      id: '/projects/$projectId/'
+      path: '/'
+      fullPath: '/projects/$projectId/'
+      preLoaderRoute: typeof ProjectsProjectIdIndexImport
+      parentRoute: typeof ProjectsProjectIdRouteImport
+    }
+    '/projects/$projectId/settings/general': {
+      id: '/projects/$projectId/settings/general'
+      path: '/settings/general'
+      fullPath: '/projects/$projectId/settings/general'
+      preLoaderRoute: typeof ProjectsProjectIdSettingsGeneralImport
+      parentRoute: typeof ProjectsProjectIdRouteImport
+    }
+    '/projects/$projectId/settings/project': {
+      id: '/projects/$projectId/settings/project'
+      path: '/settings/project'
+      fullPath: '/projects/$projectId/settings/project'
+      preLoaderRoute: typeof ProjectsProjectIdSettingsProjectImport
+      parentRoute: typeof ProjectsProjectIdRouteImport
     }
   }
 }
@@ -89,11 +221,23 @@ declare module '@tanstack/react-router' {
 // Create and export the route tree
 
 export const routeTree = rootRoute.addChildren({
-  IndexRoute,
+  HomeRouteRoute: HomeRouteRoute.addChildren({
+    HomeIndexRoute,
+    HomeSettingsAccountRoute,
+    HomeSettingsNotificationsRoute,
+    HomeSettingsTeamsRoute,
+    HomeProjectsIndexRoute,
+  }),
+  ProjectsProjectIdRouteRoute: ProjectsProjectIdRouteRoute.addChildren({
+    ProjectsProjectIdIndexRoute,
+    ProjectsProjectIdSettingsGeneralRoute,
+    ProjectsProjectIdSettingsProjectRoute,
+  }),
   AuthLoginRoute,
   AuthLogoutRoute,
   AuthRegisterRoute,
-  TeamsIndexRoute,
+  AuthRegistersuccessRoute,
+  AuthResetRoute,
 })
 
 /* prettier-ignore-end */
@@ -104,15 +248,32 @@ export const routeTree = rootRoute.addChildren({
     "__root__": {
       "filePath": "__root.tsx",
       "children": [
-        "/",
+        "/_home",
+        "/projects/$projectId",
         "/auth/login",
         "/auth/logout",
         "/auth/register",
-        "/teams/"
+        "/auth/register_success",
+        "/auth/reset"
       ]
     },
-    "/": {
-      "filePath": "index.tsx"
+    "/_home": {
+      "filePath": "_home/route.tsx",
+      "children": [
+        "/_home/",
+        "/_home/settings/account",
+        "/_home/settings/notifications",
+        "/_home/settings/teams",
+        "/_home/projects/"
+      ]
+    },
+    "/projects/$projectId": {
+      "filePath": "projects.$projectId/route.tsx",
+      "children": [
+        "/projects/$projectId/",
+        "/projects/$projectId/settings/general",
+        "/projects/$projectId/settings/project"
+      ]
     },
     "/auth/login": {
       "filePath": "auth/login.tsx"
@@ -123,8 +284,43 @@ export const routeTree = rootRoute.addChildren({
     "/auth/register": {
       "filePath": "auth/register.tsx"
     },
-    "/teams/": {
-      "filePath": "teams/index.tsx"
+    "/auth/register_success": {
+      "filePath": "auth/register_success.tsx"
+    },
+    "/auth/reset": {
+      "filePath": "auth/reset.tsx"
+    },
+    "/_home/": {
+      "filePath": "_home/index.tsx",
+      "parent": "/_home"
+    },
+    "/_home/settings/account": {
+      "filePath": "_home/settings/account.tsx",
+      "parent": "/_home"
+    },
+    "/_home/settings/notifications": {
+      "filePath": "_home/settings/notifications.tsx",
+      "parent": "/_home"
+    },
+    "/_home/settings/teams": {
+      "filePath": "_home/settings/teams.tsx",
+      "parent": "/_home"
+    },
+    "/_home/projects/": {
+      "filePath": "_home/projects/index.tsx",
+      "parent": "/_home"
+    },
+    "/projects/$projectId/": {
+      "filePath": "projects.$projectId/index.tsx",
+      "parent": "/projects/$projectId"
+    },
+    "/projects/$projectId/settings/general": {
+      "filePath": "projects.$projectId/settings/general.tsx",
+      "parent": "/projects/$projectId"
+    },
+    "/projects/$projectId/settings/project": {
+      "filePath": "projects.$projectId/settings/project.tsx",
+      "parent": "/projects/$projectId"
     }
   }
 }

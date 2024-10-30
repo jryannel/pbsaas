@@ -1,11 +1,16 @@
-import { Anchor, Box, Button, Container, Group, Stack, Text, TextInput, Title } from '@mantine/core'
+import { Anchor, Box, Button, Container, Group, PasswordInput, Stack, Text, TextInput, Title } from '@mantine/core'
 import { useForm, zodResolver } from '@mantine/form'
-import { useMutation } from '@tanstack/react-query'
-import { createFileRoute } from '@tanstack/react-router'
+import { createFileRoute, redirect, useNavigate } from '@tanstack/react-router'
 import { z } from 'zod'
-import { Users } from '../../api'
+import { useAuth } from '../../hooks/useAuth'
 
 export const Route = createFileRoute('/auth/register')({
+    beforeLoad: ({ context }) => {
+        console.log('auth/register route beforeLoad')
+        if (context.auth.isValid()) {
+            throw redirect({ to: '/' })
+        }
+    },
     component: Register,
 })
 
@@ -19,6 +24,8 @@ const formSchema = z.object({
 type FormData = z.infer<typeof formSchema>
 
 function Register() {
+    const nav = useNavigate()
+    const auth = useAuth()
     const form = useForm<FormData>({
         initialValues: {
             email: '',
@@ -27,9 +34,10 @@ function Register() {
         validate: zodResolver(formSchema),
     })
 
-    const create = useMutation(Users.create())
-    function onSubmit(values: FormData) {
-        create.mutate({ data: values })
+    async function onSubmit(values: FormData) {
+        console.log(values)
+        await auth.register(values.email, values.password)
+        nav({ to: '/auth/register_success' })
     }
 
     return (
@@ -40,7 +48,7 @@ function Register() {
                     <form onSubmit={form.onSubmit(onSubmit)}>
                         <Stack gap='md'>
                             <TextInput label="Email" {...form.getInputProps('email')} />
-                            <TextInput label="Password" {...form.getInputProps('password')} />
+                            <PasswordInput label="Password" {...form.getInputProps('password')} />
                             <Text>Already have an account? <Anchor href="/auth/login">Login here.</Anchor></Text>
                             <Group justify="right">
                                 <Button variant="primary" type="submit">Register</Button>
@@ -49,7 +57,6 @@ function Register() {
                     </form>
                 </Stack>
             </Box>
-
         </Container>
     )
 }

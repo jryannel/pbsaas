@@ -5,4 +5,3 @@ console.log("pb", PB_URL);
 
 // export const BASE_URL = "http://127.0.0.1:8090";
 export const pb = new Pocketbase(PB_URL);
-console.log("pb", pb.baseUrl);

@@ -1,7 +1,8 @@
-import { AppShell, Container } from '@mantine/core';
 import { createRootRouteWithContext, Outlet } from '@tanstack/react-router';
+import { AuthContextType } from '../contexts/AuthContext';
 
 export interface MyRouterContext {
+  auth: AuthContextType
 }
 
 export const Route = createRootRouteWithContext<MyRouterContext>()({
@@ -10,14 +11,6 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
 
 function RootLayout() {
   return (
-    <AppShell header={{ height: 60 }}>
-      <AppShell.Header>
-      </AppShell.Header>
-      <AppShell.Main>
-        <Container size='xl' p='md'>
-          <Outlet />
-        </Container>
-      </AppShell.Main>
-    </AppShell >
+    <Outlet />
   );
 }
