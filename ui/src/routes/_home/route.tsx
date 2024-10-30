@@ -2,7 +2,7 @@ import AppHeader from '@/comps/AppHeader';
 import NavBar, { NavItemData } from '@/comps/NavBar';
 import { AppShell } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
-import { IconFolder, IconHome, IconNotification, IconSettings, IconShare, IconUser } from '@tabler/icons-react';
+import { IconFolder, IconHome, IconRobot, IconSettings, IconShare, IconUser } from '@tabler/icons-react';
 import { createFileRoute, Outlet, redirect } from '@tanstack/react-router';
 
 
@@ -12,7 +12,7 @@ const navItems: NavItemData[] = [
     {
         label: 'Settings', icon: <IconSettings />, to: '/settings', children: [
             { label: 'Teams', to: '/settings/teams', icon: < IconShare /> },
-            { label: 'Notifications', to: '/settings/notifications', icon: < IconNotification /> },
+            { label: 'KI Providers', to: '/settings/providers', icon: < IconRobot /> },
             { label: 'Account', to: '/settings/account', icon: < IconUser /> },
         ]
     },

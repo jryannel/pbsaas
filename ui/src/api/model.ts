@@ -40,6 +40,11 @@ export interface Member extends RecordModel {
   };
 }
 
+export interface Invite extends RecordModel {
+  email: string;
+  team: string;
+}
+
 export interface Project extends RecordModel {
   name: string;
   description: string;
@@ -61,29 +66,16 @@ export interface Document extends RecordModel {
   };
 }
 
-export interface Job extends RecordModel {
+export interface Chat extends RecordModel {
   name: string;
   description: string;
   project: string;
-  document: string;
-  asset: string;
-  messages: string[];
+  content: string;
   expand?: {
     project: Project;
-    document: Document;
   };
 }
 
 
-export interface Template extends RecordModel {
-  name: string;
-  description: string;
-  git: string;
-}
-
-export interface Invite extends RecordModel {
-  email: string;
-  team: string;
-}
 
 

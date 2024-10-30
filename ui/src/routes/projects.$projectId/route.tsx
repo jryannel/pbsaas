@@ -2,12 +2,13 @@ import AppHeader from '@/comps/AppHeader'
 import NavBar, { NavItemData } from '@/comps/NavBar'
 import { AppShell } from '@mantine/core'
 import { useDisclosure } from '@mantine/hooks'
-import { IconAdjustments, IconFile, IconFolder, IconHome, IconSettings } from '@tabler/icons-react'
+import { IconAdjustments, IconFile, IconFolder, IconHome, IconMessages, IconSettings } from '@tabler/icons-react'
 import { createFileRoute, Outlet } from '@tanstack/react-router'
 
 const navItems: NavItemData[] = [
     { label: 'Project', icon: <IconHome />, to: '/projects/$projectId/', children: [] },
     { label: 'Documents', icon: <IconFile />, to: '/projects/$projectId/documents', children: [] },
+    { label: 'Chats', icon: <IconMessages />, to: '/projects/$projectId/chats', children: [] },
     {
         label: 'Settings', icon: <IconSettings />, to: '/settings', children: [
             { label: 'General', to: '/projects/$projectId/settings/general', icon: < IconAdjustments /> },

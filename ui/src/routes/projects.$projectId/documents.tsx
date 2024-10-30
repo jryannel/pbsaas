@@ -5,15 +5,15 @@ import { Box } from '@mantine/core'
 import { useQuery } from '@tanstack/react-query'
 import { createFileRoute } from '@tanstack/react-router'
 
-export const Route = createFileRoute('/projects/$projectId/')({
-    component: ProjectDashboard
+export const Route = createFileRoute('/projects/$projectId/documents')({
+    component: DocumentsPage,
 })
 
-function ProjectDashboard() {
+function DocumentsPage() {
     const documents = useQuery(Documents.list(0, 10))
     return (
         <Box>
-            <TitleHeader title="Project Dashboard" />
+            <TitleHeader title="Project Documents" />
             <DocumentTable documents={documents} />
         </Box>
     )

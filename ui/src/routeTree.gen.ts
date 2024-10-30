@@ -21,11 +21,15 @@ import { Route as AuthLoginImport } from './routes/auth/login'
 import { Route as ProjectsProjectIdRouteImport } from './routes/projects.$projectId/route'
 import { Route as ProjectsProjectIdIndexImport } from './routes/projects.$projectId/index'
 import { Route as HomeProjectsIndexImport } from './routes/_home/projects/index'
+import { Route as ProjectsProjectIdDocumentsImport } from './routes/projects.$projectId/documents'
+import { Route as ProjectsProjectIdChatsImport } from './routes/projects.$projectId/chats'
 import { Route as HomeSettingsTeamsImport } from './routes/_home/settings/teams'
-import { Route as HomeSettingsNotificationsImport } from './routes/_home/settings/notifications'
+import { Route as HomeSettingsProvidersImport } from './routes/_home/settings/providers'
 import { Route as HomeSettingsAccountImport } from './routes/_home/settings/account'
+import { Route as HomeProjectsNewImport } from './routes/_home/projects/new'
 import { Route as ProjectsProjectIdSettingsProjectImport } from './routes/projects.$projectId/settings/project'
 import { Route as ProjectsProjectIdSettingsGeneralImport } from './routes/projects.$projectId/settings/general'
+import { Route as ProjectsProjectIdChatsChatIdImport } from './routes/projects.$projectId/chats_.$chatId'
 
 // Create/Update Routes
 
@@ -79,18 +83,35 @@ const HomeProjectsIndexRoute = HomeProjectsIndexImport.update({
   getParentRoute: () => HomeRouteRoute,
 } as any)
 
+const ProjectsProjectIdDocumentsRoute = ProjectsProjectIdDocumentsImport.update(
+  {
+    path: '/documents',
+    getParentRoute: () => ProjectsProjectIdRouteRoute,
+  } as any,
+)
+
+const ProjectsProjectIdChatsRoute = ProjectsProjectIdChatsImport.update({
+  path: '/chats',
+  getParentRoute: () => ProjectsProjectIdRouteRoute,
+} as any)
+
 const HomeSettingsTeamsRoute = HomeSettingsTeamsImport.update({
   path: '/settings/teams',
   getParentRoute: () => HomeRouteRoute,
 } as any)
 
-const HomeSettingsNotificationsRoute = HomeSettingsNotificationsImport.update({
-  path: '/settings/notifications',
+const HomeSettingsProvidersRoute = HomeSettingsProvidersImport.update({
+  path: '/settings/providers',
   getParentRoute: () => HomeRouteRoute,
 } as any)
 
 const HomeSettingsAccountRoute = HomeSettingsAccountImport.update({
   path: '/settings/account',
+  getParentRoute: () => HomeRouteRoute,
+} as any)
+
+const HomeProjectsNewRoute = HomeProjectsNewImport.update({
+  path: '/projects/new',
   getParentRoute: () => HomeRouteRoute,
 } as any)
 
@@ -103,6 +124,12 @@ const ProjectsProjectIdSettingsProjectRoute =
 const ProjectsProjectIdSettingsGeneralRoute =
   ProjectsProjectIdSettingsGeneralImport.update({
     path: '/settings/general',
+    getParentRoute: () => ProjectsProjectIdRouteRoute,
+  } as any)
+
+const ProjectsProjectIdChatsChatIdRoute =
+  ProjectsProjectIdChatsChatIdImport.update({
+    path: '/chats/$chatId',
     getParentRoute: () => ProjectsProjectIdRouteRoute,
   } as any)
 
@@ -166,6 +193,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof HomeIndexImport
       parentRoute: typeof HomeRouteImport
     }
+    '/_home/projects/new': {
+      id: '/_home/projects/new'
+      path: '/projects/new'
+      fullPath: '/projects/new'
+      preLoaderRoute: typeof HomeProjectsNewImport
+      parentRoute: typeof HomeRouteImport
+    }
     '/_home/settings/account': {
       id: '/_home/settings/account'
       path: '/settings/account'
@@ -173,11 +207,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof HomeSettingsAccountImport
       parentRoute: typeof HomeRouteImport
     }
-    '/_home/settings/notifications': {
-      id: '/_home/settings/notifications'
-      path: '/settings/notifications'
-      fullPath: '/settings/notifications'
-      preLoaderRoute: typeof HomeSettingsNotificationsImport
+    '/_home/settings/providers': {
+      id: '/_home/settings/providers'
+      path: '/settings/providers'
+      fullPath: '/settings/providers'
+      preLoaderRoute: typeof HomeSettingsProvidersImport
       parentRoute: typeof HomeRouteImport
     }
     '/_home/settings/teams': {
@@ -186,6 +220,20 @@ declare module '@tanstack/react-router' {
       fullPath: '/settings/teams'
       preLoaderRoute: typeof HomeSettingsTeamsImport
       parentRoute: typeof HomeRouteImport
+    }
+    '/projects/$projectId/chats': {
+      id: '/projects/$projectId/chats'
+      path: '/chats'
+      fullPath: '/projects/$projectId/chats'
+      preLoaderRoute: typeof ProjectsProjectIdChatsImport
+      parentRoute: typeof ProjectsProjectIdRouteImport
+    }
+    '/projects/$projectId/documents': {
+      id: '/projects/$projectId/documents'
+      path: '/documents'
+      fullPath: '/projects/$projectId/documents'
+      preLoaderRoute: typeof ProjectsProjectIdDocumentsImport
+      parentRoute: typeof ProjectsProjectIdRouteImport
     }
     '/_home/projects/': {
       id: '/_home/projects/'
@@ -199,6 +247,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/projects/$projectId/'
       preLoaderRoute: typeof ProjectsProjectIdIndexImport
+      parentRoute: typeof ProjectsProjectIdRouteImport
+    }
+    '/projects/$projectId/chats/$chatId': {
+      id: '/projects/$projectId/chats/$chatId'
+      path: '/chats/$chatId'
+      fullPath: '/projects/$projectId/chats/$chatId'
+      preLoaderRoute: typeof ProjectsProjectIdChatsChatIdImport
       parentRoute: typeof ProjectsProjectIdRouteImport
     }
     '/projects/$projectId/settings/general': {
@@ -223,13 +278,17 @@ declare module '@tanstack/react-router' {
 export const routeTree = rootRoute.addChildren({
   HomeRouteRoute: HomeRouteRoute.addChildren({
     HomeIndexRoute,
+    HomeProjectsNewRoute,
     HomeSettingsAccountRoute,
-    HomeSettingsNotificationsRoute,
+    HomeSettingsProvidersRoute,
     HomeSettingsTeamsRoute,
     HomeProjectsIndexRoute,
   }),
   ProjectsProjectIdRouteRoute: ProjectsProjectIdRouteRoute.addChildren({
+    ProjectsProjectIdChatsRoute,
+    ProjectsProjectIdDocumentsRoute,
     ProjectsProjectIdIndexRoute,
+    ProjectsProjectIdChatsChatIdRoute,
     ProjectsProjectIdSettingsGeneralRoute,
     ProjectsProjectIdSettingsProjectRoute,
   }),
@@ -261,8 +320,9 @@ export const routeTree = rootRoute.addChildren({
       "filePath": "_home/route.tsx",
       "children": [
         "/_home/",
+        "/_home/projects/new",
         "/_home/settings/account",
-        "/_home/settings/notifications",
+        "/_home/settings/providers",
         "/_home/settings/teams",
         "/_home/projects/"
       ]
@@ -270,7 +330,10 @@ export const routeTree = rootRoute.addChildren({
     "/projects/$projectId": {
       "filePath": "projects.$projectId/route.tsx",
       "children": [
+        "/projects/$projectId/chats",
+        "/projects/$projectId/documents",
         "/projects/$projectId/",
+        "/projects/$projectId/chats/$chatId",
         "/projects/$projectId/settings/general",
         "/projects/$projectId/settings/project"
       ]
@@ -294,17 +357,29 @@ export const routeTree = rootRoute.addChildren({
       "filePath": "_home/index.tsx",
       "parent": "/_home"
     },
+    "/_home/projects/new": {
+      "filePath": "_home/projects/new.tsx",
+      "parent": "/_home"
+    },
     "/_home/settings/account": {
       "filePath": "_home/settings/account.tsx",
       "parent": "/_home"
     },
-    "/_home/settings/notifications": {
-      "filePath": "_home/settings/notifications.tsx",
+    "/_home/settings/providers": {
+      "filePath": "_home/settings/providers.tsx",
       "parent": "/_home"
     },
     "/_home/settings/teams": {
       "filePath": "_home/settings/teams.tsx",
       "parent": "/_home"
+    },
+    "/projects/$projectId/chats": {
+      "filePath": "projects.$projectId/chats.tsx",
+      "parent": "/projects/$projectId"
+    },
+    "/projects/$projectId/documents": {
+      "filePath": "projects.$projectId/documents.tsx",
+      "parent": "/projects/$projectId"
     },
     "/_home/projects/": {
       "filePath": "_home/projects/index.tsx",
@@ -312,6 +387,10 @@ export const routeTree = rootRoute.addChildren({
     },
     "/projects/$projectId/": {
       "filePath": "projects.$projectId/index.tsx",
+      "parent": "/projects/$projectId"
+    },
+    "/projects/$projectId/chats/$chatId": {
+      "filePath": "projects.$projectId/chats_.$chatId.tsx",
       "parent": "/projects/$projectId"
     },
     "/projects/$projectId/settings/general": {
