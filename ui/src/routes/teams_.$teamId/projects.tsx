@@ -5,17 +5,17 @@ import { Box } from '@mantine/core'
 import { useQuery } from '@tanstack/react-query'
 import { createFileRoute } from '@tanstack/react-router'
 
-export const Route = createFileRoute('/_home/')({
-    component: HomePage,
+export const Route = createFileRoute('/teams/$teamId/projects')({
+    component: ProjectsPage,
 })
 
-function HomePage() {
-    const projects = useQuery(Projects.list(0, 20))
+function ProjectsPage() {
+    const { teamId } = Route.useParams()
+    const projects = useQuery(Projects.list(0, 10, { filter: `team = "${teamId}"` }))
     return (
         <Box>
-            <TitleHeader title="Recent Projects" />
+            <TitleHeader title="Projects" />
             <ProjectTable projects={projects} />
         </Box>
-
     )
 }

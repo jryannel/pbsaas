@@ -10,7 +10,8 @@ export const Route = createFileRoute('/projects/$projectId/documents')({
 })
 
 function DocumentsPage() {
-    const documents = useQuery(Documents.list(0, 10))
+    const { projectId } = Route.useParams()
+    const documents = useQuery(Documents.list(0, 20, { filter: `project="${projectId}"` }))
     return (
         <Box>
             <TitleHeader title="Project Documents" />

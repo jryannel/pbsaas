@@ -10,7 +10,8 @@ export const Route = createFileRoute('/projects/$projectId/')({
 })
 
 function ProjectDashboard() {
-    const documents = useQuery(Documents.list(0, 10))
+    const { projectId } = Route.useParams()
+    const documents = useQuery(Documents.list(0, 10, { filter: `project.id="${projectId}"` }))
     return (
         <Box>
             <TitleHeader title="Project Dashboard" />

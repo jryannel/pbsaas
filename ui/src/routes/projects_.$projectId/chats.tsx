@@ -10,7 +10,8 @@ export const Route = createFileRoute('/projects/$projectId/chats')({
 })
 
 function ChatsPage() {
-    const chats = useQuery(Chats.list(0, 20))
+    const { projectId } = Route.useParams()
+    const chats = useQuery(Chats.list(0, 20, { filter: `project.id="${projectId}"` }))
     return (
         <Box>
             <TitleHeader title='Project Chats' />

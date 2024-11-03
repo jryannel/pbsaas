@@ -11,36 +11,38 @@
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
-import { Route as HomeRouteImport } from './routes/_home/route'
-import { Route as HomeIndexImport } from './routes/_home/index'
-import { Route as AuthResetImport } from './routes/auth/reset'
-import { Route as AuthRegistersuccessImport } from './routes/auth/register_success'
-import { Route as AuthRegisterImport } from './routes/auth/register'
-import { Route as AuthLogoutImport } from './routes/auth/logout'
-import { Route as AuthLoginImport } from './routes/auth/login'
-import { Route as ProjectsProjectIdRouteImport } from './routes/projects.$projectId/route'
-import { Route as ProjectsProjectIdIndexImport } from './routes/projects.$projectId/index'
-import { Route as HomeProjectsIndexImport } from './routes/_home/projects/index'
-import { Route as ProjectsProjectIdDocumentsImport } from './routes/projects.$projectId/documents'
-import { Route as ProjectsProjectIdChatsImport } from './routes/projects.$projectId/chats'
-import { Route as HomeSettingsTeamsImport } from './routes/_home/settings/teams'
-import { Route as HomeSettingsProvidersImport } from './routes/_home/settings/providers'
-import { Route as HomeSettingsAccountImport } from './routes/_home/settings/account'
-import { Route as HomeProjectsNewImport } from './routes/_home/projects/new'
-import { Route as ProjectsProjectIdSettingsProjectImport } from './routes/projects.$projectId/settings/project'
-import { Route as ProjectsProjectIdSettingsGeneralImport } from './routes/projects.$projectId/settings/general'
-import { Route as ProjectsProjectIdChatsChatIdImport } from './routes/projects.$projectId/chats_.$chatId'
+import { Route as AppRouteImport } from './routes/_app/route'
+import { Route as AppIndexImport } from './routes/_app/index'
+import { Route as AuthResetImport } from './routes/auth_/reset'
+import { Route as AuthRegistersuccessImport } from './routes/auth_/register_success'
+import { Route as AuthRegisterImport } from './routes/auth_/register'
+import { Route as AuthLogoutImport } from './routes/auth_/logout'
+import { Route as AuthLoginImport } from './routes/auth_/login'
+import { Route as AppTeamsImport } from './routes/_app/teams'
+import { Route as AppSettingsImport } from './routes/_app/settings'
+import { Route as AppProjectsImport } from './routes/_app/projects'
+import { Route as TeamsTeamIdRouteImport } from './routes/teams_.$teamId/route'
+import { Route as ProjectsProjectIdRouteImport } from './routes/projects_.$projectId/route'
+import { Route as TeamsTeamIdIndexImport } from './routes/teams_.$teamId/index'
+import { Route as ProjectsProjectIdIndexImport } from './routes/projects_.$projectId/index'
+import { Route as TeamsTeamIdSettingsImport } from './routes/teams_.$teamId/settings'
+import { Route as TeamsTeamIdProjectsImport } from './routes/teams_.$teamId/projects'
+import { Route as ProjectsProjectIdSettingsImport } from './routes/projects_.$projectId/settings'
+import { Route as ProjectsProjectIdDocumentsImport } from './routes/projects_.$projectId/documents'
+import { Route as ProjectsProjectIdChatsImport } from './routes/projects_.$projectId/chats'
+import { Route as ProjectsProjectIdDocumentsDocumentIdImport } from './routes/projects_.$projectId/documents_.$documentId'
+import { Route as ProjectsProjectIdChatsChatIdImport } from './routes/projects_.$projectId/chats_.$chatId'
 
 // Create/Update Routes
 
-const HomeRouteRoute = HomeRouteImport.update({
-  id: '/_home',
+const AppRouteRoute = AppRouteImport.update({
+  id: '/_app',
   getParentRoute: () => rootRoute,
 } as any)
 
-const HomeIndexRoute = HomeIndexImport.update({
+const AppIndexRoute = AppIndexImport.update({
   path: '/',
-  getParentRoute: () => HomeRouteRoute,
+  getParentRoute: () => AppRouteRoute,
 } as any)
 
 const AuthResetRoute = AuthResetImport.update({
@@ -68,9 +70,34 @@ const AuthLoginRoute = AuthLoginImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
+const AppTeamsRoute = AppTeamsImport.update({
+  path: '/teams',
+  getParentRoute: () => AppRouteRoute,
+} as any)
+
+const AppSettingsRoute = AppSettingsImport.update({
+  path: '/settings',
+  getParentRoute: () => AppRouteRoute,
+} as any)
+
+const AppProjectsRoute = AppProjectsImport.update({
+  path: '/projects',
+  getParentRoute: () => AppRouteRoute,
+} as any)
+
+const TeamsTeamIdRouteRoute = TeamsTeamIdRouteImport.update({
+  path: '/teams/$teamId',
+  getParentRoute: () => rootRoute,
+} as any)
+
 const ProjectsProjectIdRouteRoute = ProjectsProjectIdRouteImport.update({
   path: '/projects/$projectId',
   getParentRoute: () => rootRoute,
+} as any)
+
+const TeamsTeamIdIndexRoute = TeamsTeamIdIndexImport.update({
+  path: '/',
+  getParentRoute: () => TeamsTeamIdRouteRoute,
 } as any)
 
 const ProjectsProjectIdIndexRoute = ProjectsProjectIdIndexImport.update({
@@ -78,9 +105,19 @@ const ProjectsProjectIdIndexRoute = ProjectsProjectIdIndexImport.update({
   getParentRoute: () => ProjectsProjectIdRouteRoute,
 } as any)
 
-const HomeProjectsIndexRoute = HomeProjectsIndexImport.update({
-  path: '/projects/',
-  getParentRoute: () => HomeRouteRoute,
+const TeamsTeamIdSettingsRoute = TeamsTeamIdSettingsImport.update({
+  path: '/settings',
+  getParentRoute: () => TeamsTeamIdRouteRoute,
+} as any)
+
+const TeamsTeamIdProjectsRoute = TeamsTeamIdProjectsImport.update({
+  path: '/projects',
+  getParentRoute: () => TeamsTeamIdRouteRoute,
+} as any)
+
+const ProjectsProjectIdSettingsRoute = ProjectsProjectIdSettingsImport.update({
+  path: '/settings',
+  getParentRoute: () => ProjectsProjectIdRouteRoute,
 } as any)
 
 const ProjectsProjectIdDocumentsRoute = ProjectsProjectIdDocumentsImport.update(
@@ -95,35 +132,9 @@ const ProjectsProjectIdChatsRoute = ProjectsProjectIdChatsImport.update({
   getParentRoute: () => ProjectsProjectIdRouteRoute,
 } as any)
 
-const HomeSettingsTeamsRoute = HomeSettingsTeamsImport.update({
-  path: '/settings/teams',
-  getParentRoute: () => HomeRouteRoute,
-} as any)
-
-const HomeSettingsProvidersRoute = HomeSettingsProvidersImport.update({
-  path: '/settings/providers',
-  getParentRoute: () => HomeRouteRoute,
-} as any)
-
-const HomeSettingsAccountRoute = HomeSettingsAccountImport.update({
-  path: '/settings/account',
-  getParentRoute: () => HomeRouteRoute,
-} as any)
-
-const HomeProjectsNewRoute = HomeProjectsNewImport.update({
-  path: '/projects/new',
-  getParentRoute: () => HomeRouteRoute,
-} as any)
-
-const ProjectsProjectIdSettingsProjectRoute =
-  ProjectsProjectIdSettingsProjectImport.update({
-    path: '/settings/project',
-    getParentRoute: () => ProjectsProjectIdRouteRoute,
-  } as any)
-
-const ProjectsProjectIdSettingsGeneralRoute =
-  ProjectsProjectIdSettingsGeneralImport.update({
-    path: '/settings/general',
+const ProjectsProjectIdDocumentsDocumentIdRoute =
+  ProjectsProjectIdDocumentsDocumentIdImport.update({
+    path: '/documents/$documentId',
     getParentRoute: () => ProjectsProjectIdRouteRoute,
   } as any)
 
@@ -137,11 +148,11 @@ const ProjectsProjectIdChatsChatIdRoute =
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/_home': {
-      id: '/_home'
+    '/_app': {
+      id: '/_app'
       path: ''
       fullPath: ''
-      preLoaderRoute: typeof HomeRouteImport
+      preLoaderRoute: typeof AppRouteImport
       parentRoute: typeof rootRoute
     }
     '/projects/$projectId': {
@@ -150,6 +161,34 @@ declare module '@tanstack/react-router' {
       fullPath: '/projects/$projectId'
       preLoaderRoute: typeof ProjectsProjectIdRouteImport
       parentRoute: typeof rootRoute
+    }
+    '/teams/$teamId': {
+      id: '/teams/$teamId'
+      path: '/teams/$teamId'
+      fullPath: '/teams/$teamId'
+      preLoaderRoute: typeof TeamsTeamIdRouteImport
+      parentRoute: typeof rootRoute
+    }
+    '/_app/projects': {
+      id: '/_app/projects'
+      path: '/projects'
+      fullPath: '/projects'
+      preLoaderRoute: typeof AppProjectsImport
+      parentRoute: typeof AppRouteImport
+    }
+    '/_app/settings': {
+      id: '/_app/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof AppSettingsImport
+      parentRoute: typeof AppRouteImport
+    }
+    '/_app/teams': {
+      id: '/_app/teams'
+      path: '/teams'
+      fullPath: '/teams'
+      preLoaderRoute: typeof AppTeamsImport
+      parentRoute: typeof AppRouteImport
     }
     '/auth/login': {
       id: '/auth/login'
@@ -186,40 +225,12 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthResetImport
       parentRoute: typeof rootRoute
     }
-    '/_home/': {
-      id: '/_home/'
+    '/_app/': {
+      id: '/_app/'
       path: '/'
       fullPath: '/'
-      preLoaderRoute: typeof HomeIndexImport
-      parentRoute: typeof HomeRouteImport
-    }
-    '/_home/projects/new': {
-      id: '/_home/projects/new'
-      path: '/projects/new'
-      fullPath: '/projects/new'
-      preLoaderRoute: typeof HomeProjectsNewImport
-      parentRoute: typeof HomeRouteImport
-    }
-    '/_home/settings/account': {
-      id: '/_home/settings/account'
-      path: '/settings/account'
-      fullPath: '/settings/account'
-      preLoaderRoute: typeof HomeSettingsAccountImport
-      parentRoute: typeof HomeRouteImport
-    }
-    '/_home/settings/providers': {
-      id: '/_home/settings/providers'
-      path: '/settings/providers'
-      fullPath: '/settings/providers'
-      preLoaderRoute: typeof HomeSettingsProvidersImport
-      parentRoute: typeof HomeRouteImport
-    }
-    '/_home/settings/teams': {
-      id: '/_home/settings/teams'
-      path: '/settings/teams'
-      fullPath: '/settings/teams'
-      preLoaderRoute: typeof HomeSettingsTeamsImport
-      parentRoute: typeof HomeRouteImport
+      preLoaderRoute: typeof AppIndexImport
+      parentRoute: typeof AppRouteImport
     }
     '/projects/$projectId/chats': {
       id: '/projects/$projectId/chats'
@@ -235,12 +246,26 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProjectsProjectIdDocumentsImport
       parentRoute: typeof ProjectsProjectIdRouteImport
     }
-    '/_home/projects/': {
-      id: '/_home/projects/'
+    '/projects/$projectId/settings': {
+      id: '/projects/$projectId/settings'
+      path: '/settings'
+      fullPath: '/projects/$projectId/settings'
+      preLoaderRoute: typeof ProjectsProjectIdSettingsImport
+      parentRoute: typeof ProjectsProjectIdRouteImport
+    }
+    '/teams/$teamId/projects': {
+      id: '/teams/$teamId/projects'
       path: '/projects'
-      fullPath: '/projects'
-      preLoaderRoute: typeof HomeProjectsIndexImport
-      parentRoute: typeof HomeRouteImport
+      fullPath: '/teams/$teamId/projects'
+      preLoaderRoute: typeof TeamsTeamIdProjectsImport
+      parentRoute: typeof TeamsTeamIdRouteImport
+    }
+    '/teams/$teamId/settings': {
+      id: '/teams/$teamId/settings'
+      path: '/settings'
+      fullPath: '/teams/$teamId/settings'
+      preLoaderRoute: typeof TeamsTeamIdSettingsImport
+      parentRoute: typeof TeamsTeamIdRouteImport
     }
     '/projects/$projectId/': {
       id: '/projects/$projectId/'
@@ -249,6 +274,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProjectsProjectIdIndexImport
       parentRoute: typeof ProjectsProjectIdRouteImport
     }
+    '/teams/$teamId/': {
+      id: '/teams/$teamId/'
+      path: '/'
+      fullPath: '/teams/$teamId/'
+      preLoaderRoute: typeof TeamsTeamIdIndexImport
+      parentRoute: typeof TeamsTeamIdRouteImport
+    }
     '/projects/$projectId/chats/$chatId': {
       id: '/projects/$projectId/chats/$chatId'
       path: '/chats/$chatId'
@@ -256,18 +288,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProjectsProjectIdChatsChatIdImport
       parentRoute: typeof ProjectsProjectIdRouteImport
     }
-    '/projects/$projectId/settings/general': {
-      id: '/projects/$projectId/settings/general'
-      path: '/settings/general'
-      fullPath: '/projects/$projectId/settings/general'
-      preLoaderRoute: typeof ProjectsProjectIdSettingsGeneralImport
-      parentRoute: typeof ProjectsProjectIdRouteImport
-    }
-    '/projects/$projectId/settings/project': {
-      id: '/projects/$projectId/settings/project'
-      path: '/settings/project'
-      fullPath: '/projects/$projectId/settings/project'
-      preLoaderRoute: typeof ProjectsProjectIdSettingsProjectImport
+    '/projects/$projectId/documents/$documentId': {
+      id: '/projects/$projectId/documents/$documentId'
+      path: '/documents/$documentId'
+      fullPath: '/projects/$projectId/documents/$documentId'
+      preLoaderRoute: typeof ProjectsProjectIdDocumentsDocumentIdImport
       parentRoute: typeof ProjectsProjectIdRouteImport
     }
   }
@@ -276,21 +301,24 @@ declare module '@tanstack/react-router' {
 // Create and export the route tree
 
 export const routeTree = rootRoute.addChildren({
-  HomeRouteRoute: HomeRouteRoute.addChildren({
-    HomeIndexRoute,
-    HomeProjectsNewRoute,
-    HomeSettingsAccountRoute,
-    HomeSettingsProvidersRoute,
-    HomeSettingsTeamsRoute,
-    HomeProjectsIndexRoute,
+  AppRouteRoute: AppRouteRoute.addChildren({
+    AppProjectsRoute,
+    AppSettingsRoute,
+    AppTeamsRoute,
+    AppIndexRoute,
   }),
   ProjectsProjectIdRouteRoute: ProjectsProjectIdRouteRoute.addChildren({
     ProjectsProjectIdChatsRoute,
     ProjectsProjectIdDocumentsRoute,
+    ProjectsProjectIdSettingsRoute,
     ProjectsProjectIdIndexRoute,
     ProjectsProjectIdChatsChatIdRoute,
-    ProjectsProjectIdSettingsGeneralRoute,
-    ProjectsProjectIdSettingsProjectRoute,
+    ProjectsProjectIdDocumentsDocumentIdRoute,
+  }),
+  TeamsTeamIdRouteRoute: TeamsTeamIdRouteRoute.addChildren({
+    TeamsTeamIdProjectsRoute,
+    TeamsTeamIdSettingsRoute,
+    TeamsTeamIdIndexRoute,
   }),
   AuthLoginRoute,
   AuthLogoutRoute,
@@ -307,8 +335,9 @@ export const routeTree = rootRoute.addChildren({
     "__root__": {
       "filePath": "__root.tsx",
       "children": [
-        "/_home",
+        "/_app",
         "/projects/$projectId",
+        "/teams/$teamId",
         "/auth/login",
         "/auth/logout",
         "/auth/register",
@@ -316,89 +345,99 @@ export const routeTree = rootRoute.addChildren({
         "/auth/reset"
       ]
     },
-    "/_home": {
-      "filePath": "_home/route.tsx",
+    "/_app": {
+      "filePath": "_app/route.tsx",
       "children": [
-        "/_home/",
-        "/_home/projects/new",
-        "/_home/settings/account",
-        "/_home/settings/providers",
-        "/_home/settings/teams",
-        "/_home/projects/"
+        "/_app/projects",
+        "/_app/settings",
+        "/_app/teams",
+        "/_app/"
       ]
     },
     "/projects/$projectId": {
-      "filePath": "projects.$projectId/route.tsx",
+      "filePath": "projects_.$projectId/route.tsx",
       "children": [
         "/projects/$projectId/chats",
         "/projects/$projectId/documents",
+        "/projects/$projectId/settings",
         "/projects/$projectId/",
         "/projects/$projectId/chats/$chatId",
-        "/projects/$projectId/settings/general",
-        "/projects/$projectId/settings/project"
+        "/projects/$projectId/documents/$documentId"
       ]
     },
+    "/teams/$teamId": {
+      "filePath": "teams_.$teamId/route.tsx",
+      "children": [
+        "/teams/$teamId/projects",
+        "/teams/$teamId/settings",
+        "/teams/$teamId/"
+      ]
+    },
+    "/_app/projects": {
+      "filePath": "_app/projects.tsx",
+      "parent": "/_app"
+    },
+    "/_app/settings": {
+      "filePath": "_app/settings.tsx",
+      "parent": "/_app"
+    },
+    "/_app/teams": {
+      "filePath": "_app/teams.tsx",
+      "parent": "/_app"
+    },
     "/auth/login": {
-      "filePath": "auth/login.tsx"
+      "filePath": "auth_/login.tsx"
     },
     "/auth/logout": {
-      "filePath": "auth/logout.tsx"
+      "filePath": "auth_/logout.tsx"
     },
     "/auth/register": {
-      "filePath": "auth/register.tsx"
+      "filePath": "auth_/register.tsx"
     },
     "/auth/register_success": {
-      "filePath": "auth/register_success.tsx"
+      "filePath": "auth_/register_success.tsx"
     },
     "/auth/reset": {
-      "filePath": "auth/reset.tsx"
+      "filePath": "auth_/reset.tsx"
     },
-    "/_home/": {
-      "filePath": "_home/index.tsx",
-      "parent": "/_home"
-    },
-    "/_home/projects/new": {
-      "filePath": "_home/projects/new.tsx",
-      "parent": "/_home"
-    },
-    "/_home/settings/account": {
-      "filePath": "_home/settings/account.tsx",
-      "parent": "/_home"
-    },
-    "/_home/settings/providers": {
-      "filePath": "_home/settings/providers.tsx",
-      "parent": "/_home"
-    },
-    "/_home/settings/teams": {
-      "filePath": "_home/settings/teams.tsx",
-      "parent": "/_home"
+    "/_app/": {
+      "filePath": "_app/index.tsx",
+      "parent": "/_app"
     },
     "/projects/$projectId/chats": {
-      "filePath": "projects.$projectId/chats.tsx",
+      "filePath": "projects_.$projectId/chats.tsx",
       "parent": "/projects/$projectId"
     },
     "/projects/$projectId/documents": {
-      "filePath": "projects.$projectId/documents.tsx",
+      "filePath": "projects_.$projectId/documents.tsx",
       "parent": "/projects/$projectId"
     },
-    "/_home/projects/": {
-      "filePath": "_home/projects/index.tsx",
-      "parent": "/_home"
+    "/projects/$projectId/settings": {
+      "filePath": "projects_.$projectId/settings.tsx",
+      "parent": "/projects/$projectId"
+    },
+    "/teams/$teamId/projects": {
+      "filePath": "teams_.$teamId/projects.tsx",
+      "parent": "/teams/$teamId"
+    },
+    "/teams/$teamId/settings": {
+      "filePath": "teams_.$teamId/settings.tsx",
+      "parent": "/teams/$teamId"
     },
     "/projects/$projectId/": {
-      "filePath": "projects.$projectId/index.tsx",
+      "filePath": "projects_.$projectId/index.tsx",
       "parent": "/projects/$projectId"
+    },
+    "/teams/$teamId/": {
+      "filePath": "teams_.$teamId/index.tsx",
+      "parent": "/teams/$teamId"
     },
     "/projects/$projectId/chats/$chatId": {
-      "filePath": "projects.$projectId/chats_.$chatId.tsx",
+      "filePath": "projects_.$projectId/chats_.$chatId.tsx",
       "parent": "/projects/$projectId"
     },
-    "/projects/$projectId/settings/general": {
-      "filePath": "projects.$projectId/settings/general.tsx",
-      "parent": "/projects/$projectId"
-    },
-    "/projects/$projectId/settings/project": {
-      "filePath": "projects.$projectId/settings/project.tsx",
+    "/projects/$projectId/documents/$documentId": {
+      "filePath": "projects_.$projectId/documents_.$documentId.tsx",
       "parent": "/projects/$projectId"
     }
   }

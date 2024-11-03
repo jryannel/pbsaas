@@ -11,9 +11,10 @@ export type NavItemData = {
 
 type Props = {
     items: NavItemData[]
+    from?: string
 }
 
-export default function NavBar({ items }: Props) {
+export default function NavBar({ items, from }: Props) {
     return (
         <Stack m="md">
             {items.map((item, index) => (
@@ -24,6 +25,7 @@ export default function NavBar({ items }: Props) {
                     label={item.label}
                     leftSection={item.icon}
                     activeOptions={{ exact: true }}
+                    from={from}
                 >
                     {item.children?.length !== 0 && item.children?.map((child, index) => (
                         <NavLink
@@ -33,6 +35,7 @@ export default function NavBar({ items }: Props) {
                             label={child.label}
                             leftSection={child.icon}
                             activeOptions={{ exact: true }}
+                            from={from}
                         />
                     ))}
                 </NavLink>

@@ -1,27 +1,21 @@
-import AppHeader from '@/comps/AppHeader';
+import AppHeader, { BreadcrumbItem } from '@/comps/AppHeader';
 import NavBar, { NavItemData } from '@/comps/NavBar';
 import { AppShell } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
-import { IconFolder, IconHome, IconRobot, IconSettings, IconShare, IconUser } from '@tabler/icons-react';
+import { IconFolder, IconHome, IconSettings, IconUsers } from '@tabler/icons-react';
 import { createFileRoute, Outlet, redirect } from '@tanstack/react-router';
 
 
 const navItems: NavItemData[] = [
     { label: 'Dashboard', icon: <IconHome />, to: '/', children: [] },
     { label: 'Projects', icon: <IconFolder />, to: '/projects', children: [] },
-    {
-        label: 'Settings', icon: <IconSettings />, to: '/settings', children: [
-            { label: 'Teams', to: '/settings/teams', icon: < IconShare /> },
-            { label: 'KI Providers', to: '/settings/providers', icon: < IconRobot /> },
-            { label: 'Account', to: '/settings/account', icon: < IconUser /> },
-        ]
-    },
+    { label: 'Teams', icon: <IconUsers />, to: '/teams', children: [] },
+    { label: 'Settings', icon: <IconSettings />, to: '/settings' },
 ]
 
 
-export const Route = createFileRoute('/_home')({
+export const Route = createFileRoute('/_app')({
     beforeLoad: ({ context }) => {
-        console.log('_home/route beforeLoad')
         if (!context.auth.isValid()) {
             throw redirect({ to: '/auth/login' })
         }
@@ -31,18 +25,21 @@ export const Route = createFileRoute('/_home')({
 
 function Layout() {
     const [opened, { toggle }] = useDisclosure()
+    const bcItems: BreadcrumbItem[] = [
+        { label: 'PBSaas', to: '/' },
+    ]
     return (
         <AppShell
             header={{ height: 60 }}
             navbar={{
-                width: 300,
+                width: 240,
                 breakpoint: 'sm',
                 collapsed: { mobile: !opened },
             }}
             padding="md"
         >
             <AppShell.Header>
-                <AppHeader opened={opened} toggle={toggle} />
+                <AppHeader opened={opened} toggle={toggle} breadcrumbs={bcItems} />
             </AppShell.Header>
             <AppShell.Navbar>
                 <NavBar items={navItems} />
