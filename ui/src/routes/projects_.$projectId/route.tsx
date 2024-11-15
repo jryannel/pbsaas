@@ -3,7 +3,7 @@ import AppHeader, { BreadcrumbItem } from '@/comps/AppHeader'
 import NavBar, { NavItemData } from '@/comps/NavBar'
 import { AppShell } from '@mantine/core'
 import { useDisclosure } from '@mantine/hooks'
-import { IconFile, IconHome, IconMessages, IconSettings } from '@tabler/icons-react'
+import { IconFile, IconHome, IconMessages, IconSettings, IconStack } from '@tabler/icons-react'
 import { useQuery } from '@tanstack/react-query'
 import { createFileRoute, Outlet, redirect } from '@tanstack/react-router'
 
@@ -11,7 +11,8 @@ const navItems: NavItemData[] = [
     { label: 'Project', icon: <IconHome />, to: '' },
     { label: 'Documents', icon: <IconFile />, to: 'documents' },
     { label: 'Chats', icon: <IconMessages />, to: 'chats' },
-    { label: 'Settings', icon: <IconSettings />, to: '/settings' },
+    { label: 'Card Stacks', icon: <IconStack />, to: 'stacks' },
+    { label: 'Settings', icon: <IconSettings />, to: 'settings' },
 ]
 
 

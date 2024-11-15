@@ -27,11 +27,15 @@ import { Route as TeamsTeamIdIndexImport } from './routes/teams_.$teamId/index'
 import { Route as ProjectsProjectIdIndexImport } from './routes/projects_.$projectId/index'
 import { Route as TeamsTeamIdSettingsImport } from './routes/teams_.$teamId/settings'
 import { Route as TeamsTeamIdProjectsImport } from './routes/teams_.$teamId/projects'
+import { Route as ProjectsProjectIdStacksImport } from './routes/projects_.$projectId/stacks'
 import { Route as ProjectsProjectIdSettingsImport } from './routes/projects_.$projectId/settings'
 import { Route as ProjectsProjectIdDocumentsImport } from './routes/projects_.$projectId/documents'
 import { Route as ProjectsProjectIdChatsImport } from './routes/projects_.$projectId/chats'
+import { Route as ProjectsProjectIdStacksStackIdImport } from './routes/projects_.$projectId/stacks_.$stackId'
 import { Route as ProjectsProjectIdDocumentsDocumentIdImport } from './routes/projects_.$projectId/documents_.$documentId'
 import { Route as ProjectsProjectIdChatsChatIdImport } from './routes/projects_.$projectId/chats_.$chatId'
+import { Route as ProjectsProjectIdStacksStackIdDossiersdossierIdImport } from './routes/projects_.$projectId/stacks_.$stackId_.dossiers_$dossierId'
+import { Route as ProjectsProjectIdStacksStackIdDossiersImport } from './routes/projects_.$projectId/stacks_.$stackId_.dossiers'
 
 // Create/Update Routes
 
@@ -115,6 +119,11 @@ const TeamsTeamIdProjectsRoute = TeamsTeamIdProjectsImport.update({
   getParentRoute: () => TeamsTeamIdRouteRoute,
 } as any)
 
+const ProjectsProjectIdStacksRoute = ProjectsProjectIdStacksImport.update({
+  path: '/stacks',
+  getParentRoute: () => ProjectsProjectIdRouteRoute,
+} as any)
+
 const ProjectsProjectIdSettingsRoute = ProjectsProjectIdSettingsImport.update({
   path: '/settings',
   getParentRoute: () => ProjectsProjectIdRouteRoute,
@@ -132,6 +141,12 @@ const ProjectsProjectIdChatsRoute = ProjectsProjectIdChatsImport.update({
   getParentRoute: () => ProjectsProjectIdRouteRoute,
 } as any)
 
+const ProjectsProjectIdStacksStackIdRoute =
+  ProjectsProjectIdStacksStackIdImport.update({
+    path: '/stacks/$stackId',
+    getParentRoute: () => ProjectsProjectIdRouteRoute,
+  } as any)
+
 const ProjectsProjectIdDocumentsDocumentIdRoute =
   ProjectsProjectIdDocumentsDocumentIdImport.update({
     path: '/documents/$documentId',
@@ -141,6 +156,18 @@ const ProjectsProjectIdDocumentsDocumentIdRoute =
 const ProjectsProjectIdChatsChatIdRoute =
   ProjectsProjectIdChatsChatIdImport.update({
     path: '/chats/$chatId',
+    getParentRoute: () => ProjectsProjectIdRouteRoute,
+  } as any)
+
+const ProjectsProjectIdStacksStackIdDossiersdossierIdRoute =
+  ProjectsProjectIdStacksStackIdDossiersdossierIdImport.update({
+    path: '/stacks/$stackId/dossiers_$dossierId',
+    getParentRoute: () => ProjectsProjectIdRouteRoute,
+  } as any)
+
+const ProjectsProjectIdStacksStackIdDossiersRoute =
+  ProjectsProjectIdStacksStackIdDossiersImport.update({
+    path: '/stacks/$stackId/dossiers',
     getParentRoute: () => ProjectsProjectIdRouteRoute,
   } as any)
 
@@ -253,6 +280,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProjectsProjectIdSettingsImport
       parentRoute: typeof ProjectsProjectIdRouteImport
     }
+    '/projects/$projectId/stacks': {
+      id: '/projects/$projectId/stacks'
+      path: '/stacks'
+      fullPath: '/projects/$projectId/stacks'
+      preLoaderRoute: typeof ProjectsProjectIdStacksImport
+      parentRoute: typeof ProjectsProjectIdRouteImport
+    }
     '/teams/$teamId/projects': {
       id: '/teams/$teamId/projects'
       path: '/projects'
@@ -295,6 +329,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProjectsProjectIdDocumentsDocumentIdImport
       parentRoute: typeof ProjectsProjectIdRouteImport
     }
+    '/projects/$projectId/stacks/$stackId': {
+      id: '/projects/$projectId/stacks/$stackId'
+      path: '/stacks/$stackId'
+      fullPath: '/projects/$projectId/stacks/$stackId'
+      preLoaderRoute: typeof ProjectsProjectIdStacksStackIdImport
+      parentRoute: typeof ProjectsProjectIdRouteImport
+    }
+    '/projects/$projectId/stacks/$stackId/dossiers': {
+      id: '/projects/$projectId/stacks/$stackId/dossiers'
+      path: '/stacks/$stackId/dossiers'
+      fullPath: '/projects/$projectId/stacks/$stackId/dossiers'
+      preLoaderRoute: typeof ProjectsProjectIdStacksStackIdDossiersImport
+      parentRoute: typeof ProjectsProjectIdRouteImport
+    }
+    '/projects/$projectId/stacks/$stackId/dossiers_$dossierId': {
+      id: '/projects/$projectId/stacks/$stackId/dossiers_$dossierId'
+      path: '/stacks/$stackId/dossiers_$dossierId'
+      fullPath: '/projects/$projectId/stacks/$stackId/dossiers_$dossierId'
+      preLoaderRoute: typeof ProjectsProjectIdStacksStackIdDossiersdossierIdImport
+      parentRoute: typeof ProjectsProjectIdRouteImport
+    }
   }
 }
 
@@ -311,9 +366,13 @@ export const routeTree = rootRoute.addChildren({
     ProjectsProjectIdChatsRoute,
     ProjectsProjectIdDocumentsRoute,
     ProjectsProjectIdSettingsRoute,
+    ProjectsProjectIdStacksRoute,
     ProjectsProjectIdIndexRoute,
     ProjectsProjectIdChatsChatIdRoute,
     ProjectsProjectIdDocumentsDocumentIdRoute,
+    ProjectsProjectIdStacksStackIdRoute,
+    ProjectsProjectIdStacksStackIdDossiersRoute,
+    ProjectsProjectIdStacksStackIdDossiersdossierIdRoute,
   }),
   TeamsTeamIdRouteRoute: TeamsTeamIdRouteRoute.addChildren({
     TeamsTeamIdProjectsRoute,
@@ -360,9 +419,13 @@ export const routeTree = rootRoute.addChildren({
         "/projects/$projectId/chats",
         "/projects/$projectId/documents",
         "/projects/$projectId/settings",
+        "/projects/$projectId/stacks",
         "/projects/$projectId/",
         "/projects/$projectId/chats/$chatId",
-        "/projects/$projectId/documents/$documentId"
+        "/projects/$projectId/documents/$documentId",
+        "/projects/$projectId/stacks/$stackId",
+        "/projects/$projectId/stacks/$stackId/dossiers",
+        "/projects/$projectId/stacks/$stackId/dossiers_$dossierId"
       ]
     },
     "/teams/$teamId": {
@@ -416,6 +479,10 @@ export const routeTree = rootRoute.addChildren({
       "filePath": "projects_.$projectId/settings.tsx",
       "parent": "/projects/$projectId"
     },
+    "/projects/$projectId/stacks": {
+      "filePath": "projects_.$projectId/stacks.tsx",
+      "parent": "/projects/$projectId"
+    },
     "/teams/$teamId/projects": {
       "filePath": "teams_.$teamId/projects.tsx",
       "parent": "/teams/$teamId"
@@ -438,6 +505,18 @@ export const routeTree = rootRoute.addChildren({
     },
     "/projects/$projectId/documents/$documentId": {
       "filePath": "projects_.$projectId/documents_.$documentId.tsx",
+      "parent": "/projects/$projectId"
+    },
+    "/projects/$projectId/stacks/$stackId": {
+      "filePath": "projects_.$projectId/stacks_.$stackId.tsx",
+      "parent": "/projects/$projectId"
+    },
+    "/projects/$projectId/stacks/$stackId/dossiers": {
+      "filePath": "projects_.$projectId/stacks_.$stackId_.dossiers.tsx",
+      "parent": "/projects/$projectId"
+    },
+    "/projects/$projectId/stacks/$stackId/dossiers_$dossierId": {
+      "filePath": "projects_.$projectId/stacks_.$stackId_.dossiers_$dossierId.tsx",
       "parent": "/projects/$projectId"
     }
   }

@@ -70,7 +70,7 @@ export interface Chat extends RecordModel {
   name: string;
   description: string;
   project: string;
-  content: string;
+  content: object;
   expand?: {
     project: Project;
   };

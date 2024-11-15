@@ -14,7 +14,7 @@ type ChatContent = {
 }
 export default function ChatPanel({ chat }: Props) {
     const content = chat.content as unknown as ChatContent[]
-    console.log(content)
+    console.log("content", content)
     return (
         <Paper>
             <TitleHeader title={chat.name} description={chat.description} />

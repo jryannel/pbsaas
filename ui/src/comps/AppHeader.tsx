@@ -1,6 +1,8 @@
 import { Anchor, Breadcrumbs, Burger, Group, ThemeIcon } from "@mantine/core";
 import { IconGraph } from "@tabler/icons-react";
 import { Link } from "@tanstack/react-router";
+import SearchAction from "./SearchAction";
+import ThemeAction from "./ThemeAction";
 import UserAction from "./UserAction";
 
 
@@ -32,8 +34,10 @@ export default function Header({ opened, toggle, breadcrumbs }: HeaderProps) {
                 </Breadcrumbs>
             </Group>
             <Group align="flex-end">
+                <SearchAction />
             </Group>
-            <Group>
+            <Group gap="xs">
+                <ThemeAction />
                 <UserAction />
             </Group>
         </Group >
